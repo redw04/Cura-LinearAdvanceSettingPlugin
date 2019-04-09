@@ -65,7 +65,7 @@ class LinearAdvanceSettingPlugin(Extension):
 
         # check if linear advance settings are already applied
         start_gcode = global_container_stack.getProperty("machine_start_gcode", "value")
-        if "M900 " in start_gcode:
+        if "M572 " in start_gcode:
             return
 
         # get setting from Cura
@@ -85,7 +85,7 @@ class LinearAdvanceSettingPlugin(Extension):
                 continue
 
             if ";LINEARADVANCEPROCESSED\n" not in gcode_list[0]:
-                gcode_list[1] = ("M900 K%f ;added by LinearAdvanceSettingPlugin\n" % linear_advance_factor) + gcode_list[1]
+                gcode_list[1] = ("M572 K%f ;added by LinearAdvanceSettingPlugin\n" % linear_advance_factor) + gcode_list[1]
                 gcode_list[0] += ";LINEARADVANCEPROCESSED\n"
                 gcode_dict[plate_id] = gcode_list
                 dict_changed = True
